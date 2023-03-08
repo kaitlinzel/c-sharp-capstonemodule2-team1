@@ -9,8 +9,10 @@ namespace TenmoServer.Controllers
     [ApiController]
     public class BalanceController : Controller
     {
+
         private IUserDao userDao; 
         
+
         public IActionResult Index()
         {
             return View();
@@ -19,6 +21,7 @@ namespace TenmoServer.Controllers
         [HttpGet("{id}")]
         public ActionResult<Balance> GetBalance(int id)
         {
+
             Balance balance = userDao.Get(id); 
 
             if(balance != null)
@@ -28,6 +31,9 @@ namespace TenmoServer.Controllers
             else
             {
                 return NotFound(); 
+
+
+
             }
         }
     }
