@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TenmoServer.Models;
 using System.Security.Cryptography.Xml;
 
 namespace TenmoServer.DAO
