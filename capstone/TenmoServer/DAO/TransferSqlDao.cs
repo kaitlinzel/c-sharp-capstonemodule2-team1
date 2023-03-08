@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using TenmoServer.Models;
 
 
 namespace TenmoServer.DAO
@@ -15,7 +16,7 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
-        public void CreateTransfer(Transfer transfer)//adds transfer to sql database
+        public void CreateTransfer(Transfer transfer)//adds transfer to sql database.  SHould it return a transfer? Should it take in tranfer information as parameters instead of tranfer object?
         {
             try
             {
@@ -24,11 +25,11 @@ namespace TenmoServer.DAO
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(@"INSERT INTO transfer (transfer_type_id,transfer_status_id,account_from,account_to,amount) 
                                                     Values (@transfer_type_id, @transfer_status_id, @account_from, @account_to, @amount)", conn);
-                    cmd.Parameters.AddWithValue("@transfer_type_id",transfer.transferTypeId);
-                    cmd.Parameters.AddWithValue("@transfer_status_id",transfer.transferStatusId);
-                    cmd.Parameters.AddWithValue("@account_from",transfer.accountFrom);
-                    cmd.Parameters.AddWithValue("@account_to",transfer.accountTo);
-                    cmd.Parameters.AddWithValue("@amount",transfer.amount);
+                    cmd.Parameters.AddWithValue("@transfer_type_id",transfer.TransferTypeId);
+                    cmd.Parameters.AddWithValue("@transfer_status_id",transfer.TransferStatusId);
+                    cmd.Parameters.AddWithValue("@account_from",transfer.AccountFrom);
+                    cmd.Parameters.AddWithValue("@account_to",transfer.AccountTo);
+                    cmd.Parameters.AddWithValue("@amount",transfer.Amount);
 
                     cmd.ExecuteNonQuery();
 
@@ -100,7 +101,7 @@ namespace TenmoServer.DAO
             return transfers;
         }
 
-        public Transfer ExecuteTransfer()
+        public Transfer ExecuteTransfer();
 
 
 
@@ -108,12 +109,12 @@ namespace TenmoServer.DAO
         public Transfer CreateTransferFromReader(SqlDataReader reader)
         {
             Transfer transfer = new Transfer();
-            transfer.transferId = Convert.ToInt32(reader["transfer_id"]);
-            transfer.transferTypeId = Convert.ToInt32(reader["trasnfer_type_id"]);
-            transfer.transferStatusId = Convert.ToInt32(reader["transfer_status_id"]);
-            transfer.accountFrom = Convert.ToString(reader["account_from"]);
-            transfer.accountTo = Convert.ToString(reader["account_to"]);
-            transfer.transferAccountTo = Convert.ToDecimal(reader["amount"]);
+            transfer.TransferId = Convert.ToInt32(reader["transfer_id"]);
+            transfer.TransferTypeId = Convert.ToInt32(reader["trasnfer_type_id"]);
+            transfer.TransferStatusId = Convert.ToInt32(reader["transfer_status_id"]);
+            transfer.AccountFrom = Convert.ToInt32(reader["account_from"]);
+            transfer.AccountTo = Convert.ToInt32(reader["account_to"]);
+            transfer.Amount = Convert.ToDecimal(reader["amount"]);
 
             return transfer;
 
