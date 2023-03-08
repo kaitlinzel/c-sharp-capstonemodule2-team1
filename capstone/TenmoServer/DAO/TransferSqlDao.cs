@@ -15,7 +15,7 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
-        public void CreateTransfer(Transfer transfer)//adds transfer to sql database
+        public void CreateTransfer(Transfer transfer)//adds transfer to sql database.  SHould it return a transfer?
         {
             try
             {
